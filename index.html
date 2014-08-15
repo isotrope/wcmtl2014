@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,900,400italic,700italic' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="libs/revealjs/css/reveal.css">
+	<link rel="stylesheet" href="libs/revealjs/css/theme/sky.css" id="theme">
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="reveal">
+<div class="slides">
+
+
+<section>
+	<div class="row">
+		<div class="col-6">
+			<img class="no-shadow" src="img/me.png" alt="" />
+		</div>
+		<div class="col-6">
+			<h1>Michal Bluma</h1>
+			<img class="home-logo no-shadow" src="img/logo.svg" alt="" />
+			<!-- p>AKA isotrope</p -->
+
+			<p><a href="http://isotrope.net/">isotrope.net</a></p>
+
+			<p><a href="http://twitter.com/isotrope/">@isotrope</a></p>
+
+			<p><a href="https://www.facebook.com/isotrope.net/">fb.com/isotrope.net</a></p>
+		</div>
+	</div>
+</section>
+
+<section>
+	<h1 id="main-title">Comment présenter<br />du contenu sur mesure<br />sans vous emmêler dans la<br />
+		<img src="img/boucle.png" class="no-shadow" alt="boucle" /></h1>
+</section>
+<section>
+	<h2>Ce dont on va parler</h2>
+
+	<ul>
+		<li class="fragment">Les sites dynamiques</li>
+		<li class="fragment">Comment on demande à WordPress ce qu'on veut (Les requêtes)</li>
+		<li class="fragment">Comment on affiche les résultats (La boucle)</li>
+		<li class="fragment">Les <em>Custom Post Types</em></li>
+		<li class="fragment">Les métadonnées</li>
+	</ul>
+</section>
+<section>
+	<h2>Il y a longtemps, on construisait les pages web, une à une.</h2>
+	<img id="img-static-page" src="static_page.svg" />
+</section>
+<section data-background="img/the_shining_typewriter.gif"></section>
+<section>
+	<h2>Depuis, on s'est simplifié la vie...</h2>
+	<img class="full-width" src="img/will_ferrell_what.gif" alt="" />
+</section>
+<section>
+	<section data-background="bg_test.png" data-background-position="0 0">Entre les données</section>
+	<section data-background="bg_test.png" data-background-position="center 0">Envoie dans la BD</section>
+	<section data-background="bg_test.png" data-background-position="right 0">De la BD à la page</section>
+</section>
+
+<section data-background="img/pipe_bg.jpg" data-background-repeat="repeat">
+	<img src="img/wordpress-logo-notext-rgb.png" class="pipe-logo no-shadow" alt="" /><br />
+	<img src="img/ceci_nest_pas.png" class="no-shadow" alt="" />
+</section>
+
+<section>
+	<h1>Qu'est-ce qu'on veut afficher?</h1>
+
+	<h3>(la requête)</h3>
+</section>
+
+
+<section data-background="img/split_green.png">
+	<section class="row">
+		<div class="col-5"><h3></h3></div>
+		<div class="col-5 col-offset-2"><h3>Salut, WordPress! J’aurais besoin de contenu.</h3></div>
+	</section>
+
+	<section class="row">
+		<div class="col-5"><h3>Cool! Je suis là pour ça! Qu’est-ce que t’as besoin?</h3></div>
+		<div class="col-5 col-offset-2 fragment"><h3>Des Articles.</h3></div>
+	</section>
+
+	<section class="row">
+		<div class="col-5"><h3>Excellent! J’en ai plein. Combien t’en veux?</h3></div>
+		<div class="col-5 col-offset-2 fragment"><h3>Dix, ça va être bon!</h3></div>
+	</section>
+
+	<section class="row">
+		<div class="col-5"><h3>Veux-tu des articles provenant d’un catégorie spécifique?</h3></div>
+		<div class="col-5 col-offset-2 fragment"><h3>Pas vraiment. Je ne suis pas difficile.</h3></div>
+	</section>
+
+	<section class="row">
+		<div class="col-5">
+			<h3>Parfait. Devrais-je rester dans les articles qui ont un statut de «&nbsp;publié&nbsp;»?</h3></div>
+		<div class="col-5 col-offset-2 fragment">
+			<h3>Effectivement, ça serait bon. Je ne veux pas afficher les brouillons ou les articles post-datés.</h3>
+		</div>
+	</section>
+
+	<section class="row">
+		<div class="col-5"><h3>Tantôt, on parlait de catégories&hellip;<br />
+			Est-ce qu’il y a des termes spécifiques (tags) associés aux articles que tu veux?</h3></div>
+		<div class="col-5 col-offset-2 fragment">
+			<h3>Bof Pas vraiment… Attends! Oui, montre-moi seulement ceux associés à «&nbsp;nouvelles&nbsp;», «&nbsp;culture&nbsp;» et «&nbsp;WordPress&nbsp;».</h3>
+		</div>
+	</section>
+
+	<section class="row">
+		<div class="col-5">
+			<h3>Pas de problème. Donc, 10 articles. Veux-tu les 10 plus récents en ordre chronologique décroissant ou les dix premiers?</h3>
+		</div>
+		<div class="col-5 col-offset-2 fragment"><h3>Les 10 derniers.</h3></div>
+	</section>
+
+	<section class="row">
+		<div class="col-5">
+			<h3>J’ai vu que t’as des «&nbsp;Sticky Posts&nbsp;», des billets qui devraient être «&nbsp;à la une&nbsp;». Est-ce que je te les affiche en premier, puis je continue avec les autres en ordre chronologique jusqu’àce que j’arrive à un total de 10?</h3>
+		</div>
+		<div class="col-5 col-offset-2 fragment">
+			<h3>Oh! Merci! Nice catch! Le client adore ses «&nbsp;Sticky Posts&nbsp;». Commence avec ceux-là, s’il te plaît.</h3>
+		</div>
+	</section>
+
+	<section class="row">
+		<div class="col-5">
+			<h3>Bon… J’essaie de voir si j’oublie des questions, mais c’est pas mal ça qui me vient à l’esprit. As-tu d’autres demandes spéciales?</h3>
+		</div>
+		<div class="col-5 col-offset-2 fragment"><h3>Non. C’est tout. Merci!</h3></div>
+	</section>
+
+	<section data-background="img/samberg_high_five.gif"></section>
+</section>
+
+
+<section>
+	<div>
+		<h3>Paramètres</h3>
+
+		<h2>&darr;</h2>
+	</div>
+	<div class="fragment">
+		<h3>Requête</h3>
+
+		<h2>&darr;</h2>
+	</div>
+	<div class="fragment">
+		<img class="so-much-win" src="img/so_much_win.jpg" alt="" />
+	</div>
+</section>
+
+<section>
+	<h2>Si vous voulez avoir un petit mal de tête :<br />
+		<a href="http://codex.wordpress.org/Class_Reference/WP_Query">WP_Query dans le Codex</a></h2>
+	<img class="universe-gif" src="img/universe_head.gif" alt="" />
+</section>
+
+
+<section>
+	<h1>La boucle</h1>
+
+	<h3>(The Loop)</h3>
+</section>
+
+<section>
+	<h3>On a demandé 10 articles</h3>
+
+	<div class="fragment">
+		<h4>Pour chacun, on va recevoir :</h4>
+		<ul class="post-elements">
+			<li class="fragment">Le titre de l’article</li>
+			<li class="fragment">Le contenu entré dans l’éditeur de contenu</li>
+			<li class="fragment">L’auteur de l’article</li>
+			<li class="fragment">L’heure et la date de publication de l’article</li>
+			<li class="fragment">Les catégories auxquelles l’article est associé</li>
+			<li class="fragment">Les « tags » associés à l’article</li>
+			<li class="fragment">...</li>
+		</ul>
+	</div>
+</section>
+
+<section>
+	<h1 class="red attention">Attention!</h1>
+
+	<h2>Préparez-vous à la possibilité qu'aucun contenu ne vous sera retourné.</h2>
+</section>
+
+
+<section data-run="ISO.full-video-the-loop">
+	<p>La viédo de la boucle</p>
+
+	<p>Si vous voyez ceci, veuillez avancer puis reculer d'une diapositive.</p>
+</section>
+
+<section>
+	?examples of different layouts? Archive loop vs single.php?
+	loop of 10 articles vs loop of 1 article
+</section>
+
+<section>
+	<h3>À la base, WordPress gère</h3>
+
+	<h2>des Articles («&nbsp;posts&nbsp;») et des Pages*</h2>
+	<h4>*et quelques autres comme les menus, les pièces jointes et révisions</h4>
+</section>
+
+<section>
+	<h1>Pourquoi s'arrêter là?</h1>
+
+	<h2>On peut aussi gérer n'importe quoi d'autre</h2>
+</section>
+
+<section>
+	<section>
+		<h3>Avez-vous déjà utilisé les catégories pour gérer du contenu sur mesure?</h3>
+		<img src="img/surprised_cat2.jpg" class="fragment" alt="" />
+
+		<h1 class="fragment">Moi aussi!</h1>
+	</section>
+	<section><h1>On peut faire mieux!</h1></section>
+
+</section>
+
+<section>
+	<section>
+		<h1>Custom Post Types
+			<small>(«&nbsp;CPT&nbsp;»)</small>
+		</h1>
+		<h2><strong>*LA*</strong> solution pour le contenu sur mesure</h2>
+	</section>
+
+	<section>
+		<h2>Comme exemple, on va prendre les «&nbsp;livres&nbsp;».</h2>
+	</section>
+
+	<section>
+		<h3>On n'a qu'à déclarer notre type de contenu et WordPress va le traiter comme un article ou une page</h3>
+
+		<h3>WordPress n'a pas besoin de savoir ce qu'est un <em>livre</em>.</h3>
+
+		<h3>Simplement qu'il existe.</h3>
+	</section>
+	<section data-background="img/menu_livres.png" data-background-repeat="no-repeat" data-background-position="left 0" data-background-size="contain">
+		<h3>Il y aura même un menu dédié dans l'admin</h3>
+
+		<div class="fragment">
+			<h2>Vos clients vont vous adorer!</h2>
+			<img class="gif-700" src="img/lebowski_stoked.gif" alt="" />
+		</div>
+	</section>
+	<section data-background="img/menu_livres.png" data-background-repeat="no-repeat" data-background-position="left 0" data-background-size="contain">
+		<h3>On va se retrouver même avec <br /> «&nbsp;Ajouter un <em>livre</em>&nbsp;»,
+		<br />«&nbsp;Modifier un <em>livre</em>&nbsp;», <br />«&nbsp;Supprimer un <em>livre</em>&nbsp;»</h3>
+	</section>
+
+	<section>
+		<h3>Lors de la <strong>requête</strong>, on peut demander du contenu de type <em>livre</em></h3>
+	</section>
+
+	<section>
+		<h3>Au lieu de</h3>
+		<blockquote>«&nbsp;WordPress, trouve-moi 10 articles&hellip;&nbsp;»</blockquote>
+		<div class="fragment">
+			<h3>On peut lui demander</h3>
+			<blockquote>«&nbsp;WordPress, trouve-moi 10 &lsquo;livres&rsquo;»</blockquote>
+		</div>
+	</section>
+
+	<section>
+		<h3>Dans la boucle, on parlait de recevoir&nbsp;:</h3>
+		<ul class="post-elements">
+			<li class="">Le titre de l’article</li>
+			<li class="">Le contenu entré dans l’éditeur de contenu</li>
+			<li class="">L’auteur de l’article</li>
+			<li class="">L’heure et la date de publication de l’article</li>
+			<li class="">Les catégories auxquelles l’article est associé</li>
+			<li class="">Les « tags » associés à l’article</li>
+			<li class="">...</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Pour bien gérer nos <em>livres</em>, ça ne sera pas assez.</h2>
+
+		<h2>Dites bonjour aux...</h2>
+	</section>
+
+</section>
+
+<section>
+	<section>
+	<h1>Métadonnées</h1>
+	<h4>(«&nbsp;post_meta&nbsp;»)</h4>
+	</section>
+
+
+	<section>
+			<h4>Pour bien décrire un <em>livre</em>, on pourrait avoir besoin de&nbsp;:</h4>
+			<ul class="post-elements">
+				<li class="fragment">Le titre ddu livre</li>
+				<li class="fragment">La description / Synopsis</li>
+				<li class="fragment">L’auteur du livre</li>
+				<li class="fragment">La date de publication du livre</li>
+				<li class="fragment">La maison d'édition</li>
+				<li class="fragment">Un lien vers le site de la maison d'édition</li>
+				<li class="fragment">La couverture du livre</li>
+				<li class="fragment">Le graphiste responsable de la couverture</li>
+				<li class="fragment">Le numéro ISBN</li>
+				<li class="fragment">Le nombre de pages</li>
+			</ul>
+	</section>
+</section>
+
+
+<!-- **************************** CREDITS ********************************* -->
+<section>
+	<a href="https://www.flickr.com/photos/125167502@N02/14185322208/in/set-72157644655809428/">"polaroid 635 supercolor"</a> de
+	<a href="https://www.flickr.com/photos/125167502@N02/">markus spiske</a> via
+	<a href="http://www.raumrot.com">http://www.raumrot.com</a>
+</section>
+
+</div>
+</div>
+<section id="full-screen-the-loop" class="full-screen">
+	<video style="width:100%; height:100%;">
+		<source type="video/mp4" src="assets/the_loop_local_720p.mp4" />
+		<source type="video/youtube" src="http://youtu.be/bqWVxClIXkU" />
+	</video>
+</section>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="libs/revealjs/js/reveal.min.js"></script>
+<script type="text/javascript" src="libs/mediaelementjs/mediaelement-and-player.min.js"></script>
+
+<script type="text/javascript" src="js/scripts.min.js"></script>
+</body>
+</html>
